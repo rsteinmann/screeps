@@ -16,7 +16,7 @@ module.exports = {
         }
 
         // Secondary: transfer to spawn
-        if (Game.spawns['SpawnRaphiman'].store.getFreeCapacity('energy') <= 0) {
+        if (Game.spawns['SpawnRaphiman'].store.getFreeCapacity('energy') > 0) {
             creep.say('transfer')
             console.log(creep, 'new order: transfer')
             creep.memory.task = 'transfer'
