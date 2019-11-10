@@ -11,7 +11,7 @@ module.exports = {
             body: [WORK, CARRY, MOVE, MOVE, MOVE],
         },
         builder: {
-            max: 5,
+            max: 3,
             class: 'workers',
             requiredEnergy: 300,
             body: [WORK, WORK, CARRY, MOVE],

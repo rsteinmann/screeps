@@ -16,8 +16,16 @@ module.exports = {
         }
 
         // Secondary: repair buildings
+        const toRepair = Game.rooms['E24N31'].find(FIND_STRUCTURES, { 
+            filter: (s) => s.hits < s.hitsMax && s.structureType != STRUCTURE_WALL
+        })
+        if (toRepair.length > 0) {
+            creep.say('repair')
+            console.log(creep, 'new order: repair')
+            creep.memory.task = 'repair'
+        }
         // Tertiary: build buildings
-        if (creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES)) {
+        else if (creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES)) {
             creep.say('build')
             console.log(creep, 'new order: build')
             creep.memory.task = 'build'
@@ -29,7 +37,7 @@ module.exports = {
     run (creep, task) {
         task = task || creep.memory.task
         // Set Creeper to work...
-        if (['harvest', 'build'].includes(task)) {
+        if (['harvest', 'build', 'repair'].includes(task)) {
             this.runTask(creep, task)
         } else {
             creep.memory.task = null

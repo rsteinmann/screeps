@@ -69,6 +69,32 @@ module.exports = {
 
 
     /**
+     * Repairs buildings that have not full hitpoints until empty.
+     * @param {creep} creep 
+     */
+    repair (creep) {
+        if (creep.store.getFreeCapacity() === creep.store.getCapacity('energy')) {
+            creep.say('empty')
+            console.log(creep, 'storage is empty! Skipping build...')
+            creep.memory.task = null
+            return false
+        }
+        const toRepair = creep.pos.findClosestByPath(FIND_STRUCTURES, { 
+            filter: (s) => s.hits < s.hitsMax && s.structureType != STRUCTURE_WALL
+        })
+        console.log('toRepair', toRepair)
+        if (!toRepair) {
+            creep.memory.task = null
+            return false
+        }
+        if (creep.repair(toRepair) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(toRepair)
+        }
+        return true
+    },
+
+
+    /**
      * Builds any nearby building until empty.
      * @param {creep} creep 
      */
@@ -81,6 +107,7 @@ module.exports = {
         }
         const constructionSite = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES)
         if (!constructionSite) {
+            creep.memory.task = null
             return false
         }
         if (creep.build(constructionSite) === ERR_NOT_IN_RANGE) {

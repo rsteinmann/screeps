@@ -1,37 +1,27 @@
+const MainMemory = require('./main.memory')
 const MainSpawner = require('./main.spawn')
+// Prepare
+MainMemory.init()
 
-
+// Game loop
 module.exports.loop = () => {
     const My = require('./config')
-    // Stores the current situation
-    Memory.stats = {
-        creeps: {
-            harvester: 0,
-            builder: 0,
-            increment: Memory.stats.creeps.increment,
-        }
-    }
-
-    // console.log('---------------------- TICK ----------------------')
-    // console.log('SPAWN', Game.spawns['SpawnRaphiman'].store.getUsedCapacity('energy'))
     
+    // 1. Memory Tasks
+    MainMemory
+        .clear()
+        .countCreeps()
+        .countTodos()
 
-    // Clear Memory
-    Memory.stats.creeps.harvester = 0
-    for (const i in Memory.creeps) {
-        if(!Game.creeps[i]) {
-            delete Memory.creeps[i];
-        }
-    }
-    // Count creeps
-    for (const i in Game.creeps) {
-        const role = Game.creeps[i].memory.role
-        Memory.stats.creeps[role]++
-    }
-    // Spawn new Creeps
+    // Display Stats
+    console.log('---------------------- TICK ----------------------')
+    console.log('[SPAWN] harvester:', Memory.stats.creeps.harvester, 'builder:', Memory.stats.creeps.harvester)
+    console.log('[TODO] build:', Memory.stats.todos.toBuild, 'repair:', Memory.stats.todos.toRepair)
+
+    // 2. Spawn new Creeps
     MainSpawner.spawnCreeps()
 
-    // Creeps
+    // 3. Organize Creeps
     for (const i in Game.creeps) {
 
         switch (Game.creeps[i].memory.role) {
@@ -49,6 +39,3 @@ module.exports.loop = () => {
         }
     }
 }
-
-// Important Commands
-// Game.spawns.SpawnRaphiman.createCreep([WORK, CARRY, MOVE, MOVE, MOVE], 'Harvester_1', { role: 'harvester' })
