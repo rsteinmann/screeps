@@ -5,10 +5,10 @@ module.exports = {
     spawn: Game.spawns['SpawnRaphiman'],
     creeps: {
         harvester: {
-            max: 12, // Max. number of this type (auto manufactured)
+            max: 11, // Max. number of this type (auto manufactured)
             class: 'workers',
             requiredEnergy: 300,
-            body: [WORK, CARRY, MOVE, MOVE, MOVE],
+            body: [WORK, WORK, CARRY, MOVE],
         },
         builder: {
             max: 3,
