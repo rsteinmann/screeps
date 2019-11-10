@@ -15,26 +15,21 @@ module.exports = {
             return this.run(creep)
         }
 
-        // Secondary: transfer to spawn
-        if (My.spawn.store.getFreeCapacity('energy') <= 0) {
-            creep.say('upgrade')
-            console.log(creep, 'new order: upgrade')
-            creep.memory.task = 'upgrade'
-        }
-        // Tertiary: upgrade controller
-        else {
-            creep.say('transfer')
-            console.log(creep, 'new order: transfer')
-            creep.memory.task = 'transfer'
+        // Secondary: repair buildings
+        // Tertiary: build buildings
+        if (creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES)) {
+            creep.say('build')
+            console.log(creep, 'new order: build')
+            creep.memory.task = 'build'
         }
         return this.run(creep)
     },
-    
+
 
     run (creep, task) {
         task = task || creep.memory.task
         // Set Creeper to work...
-        if (['harvest', 'transfer', 'upgrade'].includes(task)) {
+        if (['harvest', 'build'].includes(task)) {
             this.runTask(creep, task)
         } else {
             creep.memory.task = null
