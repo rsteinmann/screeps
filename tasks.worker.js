@@ -32,13 +32,13 @@ module.exports = {
             creep.memory.task = null
             return false
         }
-        if (My.spawn.store.getFreeCapacity('energy') === 0) {
+        if (Game.spawns['SpawnRaphiman'].store.getFreeCapacity('energy') === 0) {
             creep.say('full')
             console.log(creep, 'Spawn is full! Skipping transfer...')
             creep.memory.task = false
             return false
         }
-        const transferTarget = My.spawn || null
+        const transferTarget = Game.spawns['SpawnRaphiman'] || null
         if (transferTarget) {
             if (creep.transfer(transferTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
                 creep.moveTo(transferTarget)

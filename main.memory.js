@@ -40,7 +40,7 @@ module.exports = {
     countCreeps () {
         for (const i in Game.creeps) {
             const role = Game.creeps[i].memory.role
-            Memory.stats.creeps[role] = Memory.stats.creeps[role]++
+            Memory.stats.creeps[role]++
         }
         return this
     },
