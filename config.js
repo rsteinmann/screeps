@@ -11,7 +11,7 @@ module.exports = {
             body: [WORK, WORK, CARRY, MOVE],
         },
         harvester: {
-            max: 11, // Max. number of this type (auto manufactured)
+            max: 7, // Max. number of this type (auto manufactured)
             class: 'workers',
             requiredEnergy: 300,
             body: [WORK, WORK, CARRY, MOVE],
