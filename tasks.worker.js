@@ -26,25 +26,28 @@ module.exports = {
      * @param {creep} creep 
      */
     transfer (creep) {
+        const transferTarget = creep.findClosestToLoad()
+        console.log('transferTarget' ,transferTarget)
+        if (!transferTarget) {
+            creep.say('no target')
+            console.log(creep, 'No target for transfer set! Skipping transfer...')
+            creep.memory.task = null
+            return false
+        }
         if (creep.store.getFreeCapacity() === creep.store.getCapacity('energy')) {
             creep.say('empty')
             console.log(creep, 'storage is empty! Skipping transfer...')
             creep.memory.task = null
             return false
         }
-        if (Game.spawns['SpawnRaphiman'].store.getFreeCapacity('energy') === 0) {
+        if (transferTarget && transferTarget.store.getFreeCapacity('energy') === 0) {
             creep.say('full')
             console.log(creep, 'Spawn is full! Skipping transfer...')
-            creep.memory.task = false
+            creep.memory.task = null
             return false
         }
-        const transferTarget = Game.spawns['SpawnRaphiman'] || null
-        if (transferTarget) {
-            if (creep.transfer(transferTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(transferTarget)
-            }
-        } else {
-            console.log(creep, 'No target for transfer set!')
+        if (creep.transfer(transferTarget, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(transferTarget)
         }
         return true
     },
@@ -82,7 +85,6 @@ module.exports = {
         const toRepair = creep.pos.findClosestByPath(FIND_STRUCTURES, { 
             filter: (s) => s.hits < s.hitsMax && s.structureType != STRUCTURE_WALL
         })
-        console.log('toRepair', toRepair)
         if (!toRepair) {
             creep.memory.task = null
             return false

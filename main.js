@@ -1,3 +1,4 @@
+require('./proto.creep')
 const MainMemory = require('./main.memory')
 const MainSpawner = require('./main.spawn')
 // Prepare

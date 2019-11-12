@@ -15,11 +15,12 @@ module.exports = {
             return this.run(creep)
         }
 
-        // Secondary: transfer to spawn
-        if (Game.spawns['SpawnRaphiman'].store.getFreeCapacity('energy') > 0) {
+        console.log('BEFORE CHECK', creep.findClosestToLoad())
+        if (creep.findClosestToLoad()) {
             creep.say('transfer')
             console.log(creep, 'new order: transfer')
             creep.memory.task = 'transfer'
+            return this.run(creep)
         }
         // Tertiary: upgrade controller
         else {

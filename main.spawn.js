@@ -25,7 +25,15 @@ module.exports = {
         if (typeof roleName !== 'string') {
             return false
         }
-        if (Game.spawns['SpawnRaphiman'].store.getUsedCapacity('energy') < My.creeps[roleName].requiredEnergy) {
+        let energyLevel = 0
+        Game.spawns['SpawnRaphiman'].room.find(FIND_MY_STRUCTURES, {
+            filter: (structure) => {
+                if(["extension", "spawn"].includes(structure.structureType)) {
+                    energyLevel += structure.store.getUsedCapacity('energy')
+                }
+            }
+        })
+        if (energyLevel < My.creeps[roleName].requiredEnergy) {
             return false
         }
         // Prepare Build
