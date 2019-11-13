@@ -27,7 +27,6 @@ module.exports = {
      */
     transfer (creep) {
         const transferTarget = creep.findClosestToLoad()
-        console.log('transferTarget' ,transferTarget)
         if (!transferTarget) {
             creep.say('no target')
             console.log(creep, 'No target for transfer set! Skipping transfer...')
