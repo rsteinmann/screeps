@@ -16,7 +16,7 @@ module.exports.loop = () => {
 
     // Display Stats
     console.log('---------------------- TICK ----------------------')
-    console.log('[SPAWN] harvester:', Memory.stats.creeps.harvester, 'builder:', Memory.stats.creeps.harvester)
+    console.log('[SPAWN] harvester:', Memory.stats.creeps.harvester, 'builder:', Memory.stats.creeps.builder)
     console.log('[TODO] build:', Memory.stats.todos.toBuild, 'repair:', Memory.stats.todos.toRepair)
 
     // 2. Spawn new Creeps
