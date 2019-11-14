@@ -7,16 +7,15 @@ module.exports = {
      * @param {creep} creep 
      */
     harvest (creep) {
-        if (creep.store.getFreeCapacity() <= 0) {
-            creep.say('full')
-            console.log(creep, 'storage is full! Skipping harvest...')
+        const requiredEnergy = creep.store.getFreeCapacity()
+        // console.log('requiredEnergy', requiredEnergy)
+        // Abort harvest if full
+        if (requiredEnergy < 1) {
             creep.memory.task = null
             return false
         }
-        const energySource = creep.pos.findClosestByPath(FIND_SOURCES)
-        if (creep.harvest(energySource) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(energySource)
-        }
+        const energySource = creep.findClosestUsableSource()
+        creep.taskHarvest(energySource)
         return true
     },
 
