@@ -28,7 +28,8 @@ Creep.prototype.findClosestToLoad = function () {
 
 Creep.prototype.findClosestUsableSource = function () {
     const sources = this.room.find(FIND_SOURCES)
-    const closestSource = this.pos.findClosestByPath(sources)
+    const activeSources = sources.filter(source => source.energy > 0)
+    const closestSource = this.pos.findClosestByPath(activeSources)
     // Check if it is not ...
     // const sources = creep.room.find(FIND_SOURCES)
     // sources.forEach(source => {

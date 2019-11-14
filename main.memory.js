@@ -3,9 +3,10 @@ module.exports = {
      * Prepares memory
      */
     init () {
+        Memory.rooms = {} // Stores room informations
         Memory.stats = {
             creeps: {
-                increment: Memory.stats.creeps.increment,
+                increment: Memory.stats.creeps.increment || 0,
                 harvester: 0,
                 builder: 0,
             }
