@@ -61,7 +61,7 @@ module.exports = {
     spawn (creeperBody, creeperName, creeperData) {
         if (Game.spawns['SpawnRaphiman'].spawnCreep(creeperBody, creeperName, creeperData) < 0) {
             // Handle errors
-            console.log(`SPAWN: Error spawning new ${creeperName}! Code:`, buildFeedback)
+            console.log(`SPAWN: Error spawning new ${creeperName}! Code`)
             return false
         } else {
             return true
