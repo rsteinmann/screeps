@@ -27,7 +27,7 @@ module.exports = {
         builder: {
             max: 3,
             class: 'workers',
-            requiredEnergy: 300,
+            requiredEnergy: 550,
             body: [WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE],
         },
         harvester: {
