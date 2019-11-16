@@ -59,7 +59,8 @@ module.exports = {
      * @return {Boolean}
      */
     spawn (creeperBody, creeperName, creeperData) {
-        if (Game.spawns['SpawnRaphiman'].spawnCreep(creeperBody, creeperName, creeperData) < 0) {
+        const buildFeedback = Game.spawns['SpawnRaphiman'].spawnCreep(creeperBody, creeperName, creeperData)
+        if (buildFeedback < 0) {
             // Handle errors
             console.log(`SPAWN: Error spawning new ${creeperName}! Code`)
             return false
