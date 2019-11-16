@@ -7,6 +7,7 @@ objLog = function (obj) {
         console.log('OBJECT', i, obj[i])
     }
 }
+require('./proto.spawn')
 require('./proto.source')
 require('./proto.creep')
 const MainMemory = require('./main.memory')
