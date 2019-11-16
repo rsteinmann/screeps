@@ -1,0 +1,22 @@
+{
+  "name": "screeps",
+  "version": "0.2.0",
+  "description": "My screeps code",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsteinmann/screeps.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rsteinmann/screeps/issues"
+  },
+  "homepage": "https://github.com/rsteinmann/screeps#readme",
+  "dependencies": {
+    "@types/screeps": "^2.5.5"
+  }
+}
