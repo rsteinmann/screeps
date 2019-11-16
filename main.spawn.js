@@ -1,6 +1,10 @@
 const My = require('./config')
 module.exports = {
     spawnCreeps () {
+        // Check for emergencies
+        if (Memory.stats.creeps.harvester <= 3 && Game.rooms['E24N31'].energyAvailable >= 200) {
+            Game.spawns['SpawnRaphiman'].spawnEmergencyHarvester()
+        }
         // Check each role
         for (const roleName in My.creeps) {
             if (Memory.stats.creeps[roleName] < My.creeps[roleName].max) {
@@ -62,7 +66,7 @@ module.exports = {
         const buildFeedback = Game.spawns['SpawnRaphiman'].spawnCreep(creeperBody, creeperName, creeperData)
         if (buildFeedback < 0) {
             // Handle errors
-            console.log(`SPAWN: Error spawning new ${creeperName}! Code`)
+            console.log(`SPAWN: Error spawning new ${creeperName}! Code`, buildFeedback)
             return false
         } else {
             return true
