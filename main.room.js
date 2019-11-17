@@ -3,8 +3,12 @@ module.exports = {
     const Room = Game.rooms[roomName]
     // Store room info in memory
     if (!Memory.rooms.hasOwnProperty(roomName)) {
-      Memory.rooms[roomName] = {
-        sources: this.initSources(Room)
+      // Write to memory and Link to room object
+      Room.memory = Memory.rooms[roomName] = {
+        sources: this.initSources (Room),
+        structures: {
+          towers: this.initTowers (Room),
+        }
       }
     }
   },
@@ -24,5 +28,13 @@ module.exports = {
           slots: source.calcSlots()
         }
       })
-  }
+  },
+
+
+  initTowers (Room) {
+    return Room
+      .find(FIND_MY_STRUCTURES)
+      .filter(structure => structure.structureType === 'tower')
+      .map(tower => { return {... {id: tower.id}, ... tower.init()}})
+  },
 }

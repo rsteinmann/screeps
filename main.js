@@ -1,4 +1,4 @@
-objLog = function (obj) {
+var objLog = function (obj) {
     if (typeof obj !== 'object') {
         console.log(`OBJECT is`, typeof obj)
         return false
@@ -7,12 +7,16 @@ objLog = function (obj) {
         console.log('OBJECT', i, obj[i])
     }
 }
+
 require('./proto.spawn')
 require('./proto.source')
 require('./proto.creep')
+require('./proto.tower')
+
 const MainMemory = require('./main.memory')
 const MainRoom = require('./main.room')
 const MainSpawner = require('./main.spawn')
+
 // Prepare
 MainMemory.init()
 MainRoom.init('E24N31')
@@ -53,4 +57,15 @@ module.exports.loop = () => {
                 break
         }
     }
+
+    // 4. Do stuff coded within memory
+    // TODO: Requires generalization!!!
+    const RoomStructures = Game.rooms['E24N31'].find(FIND_MY_STRUCTURES)
+    Memory.rooms['E24N31'].structures.towers
+        .forEach((towerMemory, index) => {
+            // Connect memory to object and run its protocol
+            const Tower = RoomStructures.filter(s => s.id === towerMemory.id)[0]
+            Tower.memory = Game.rooms['E24N31'].memory.structures.towers[index]
+            Tower.run()
+        })
 }
