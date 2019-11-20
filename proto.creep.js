@@ -3,6 +3,15 @@
  * @return {object} - The structure that requires loading.
  */
 Creep.prototype.findClosestToLoad = function () {
+    // Protocol: attackMode
+    if (Memory.attackMode) {
+        const towers = this.room
+            .find(FIND_MY_STRUCTURES)
+            .filter(s => s.type === 'tower' && s.getUsedCapacity('energy') < s.getCapacity('energy'))
+        if (towers.length > 0) {
+            return this.pos.findClosestByPath(towers)
+        }
+    }
     // Follows priorities: Spawns > Extensions > Towers
     let energyStructureTargets = {
         spawn: [],

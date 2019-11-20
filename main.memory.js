@@ -14,6 +14,12 @@ module.exports = {
         return this
     },
 
+
+    setMode () {
+        var hostiles = Game.rooms['E24N31'].find(FIND_HOSTILE_CREEPS)
+        Memory.attackMode = (hostiles.length > 0)
+    },
+
     
     /**
      * Removes unused stuff from memory.

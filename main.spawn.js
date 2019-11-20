@@ -1,6 +1,11 @@
 const My = require('./config')
 module.exports = {
     spawnCreeps () {
+        // Check for Mode
+        if (Memory.attackMode) {
+            // TODO: only build attack/defense units?
+            return
+        }
         // Check for emergencies
         if (Memory.stats.creeps.harvester <= 3 && Game.rooms['E24N31'].energyAvailable >= 200) {
             Game.spawns['SpawnRaphiman'].spawnEmergencyHarvester()

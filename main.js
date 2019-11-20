@@ -30,9 +30,12 @@ module.exports.loop = () => {
         .clear()
         .countCreeps()
         .countTodos()
+        .setMode()
+
 
     // Display Stats
     console.log('---------------------- TICK ----------------------')
+    Memory.attackMode ? console.log('!!! ATTACK MODE !!!') : ''
     console.log('[SPAWN] harvester:', Memory.stats.creeps.harvester, 'builder:', Memory.stats.creeps.builder)
     console.log('[RESOURCE] energy', Game.rooms['E24N31'].energyAvailable, `(${Game.rooms['E24N31'].energyCapacityAvailable})`)
     console.log('[TODO] build:', Memory.stats.todos.toBuild, 'repair:', Memory.stats.todos.toRepair)
