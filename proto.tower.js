@@ -35,9 +35,9 @@ StructureTower.prototype.setProtocol = function (protocol = {}) {
 StructureTower.prototype.run = function () {
     // Execute Tasks configured by protocol
     return {
-        guardAttack: this.memory.guardAttack ? this.guardAttack() : false,
         guardRepair: this.memory.guardRepair ? this.guardRepair() : false,
         guardHeal:   this.memory.guardHeal   ? this.guardHeal()   : false,
+        guardAttack: this.memory.guardAttack ? this.guardAttack() : false,
     }
 }
 
@@ -58,7 +58,18 @@ StructureTower.prototype.guardAttack = function () {
  * Guards for repairing structures.
  */
 StructureTower.prototype.guardRepair = function () {
-    const closestDamagedStructure = this.pos.findClosestByRange(FIND_STRUCTURES, {filter: structure => structure.hits < structure.hitsMax})
+    const closestDamagedStructure = this.pos.findClosestByRange(FIND_STRUCTURES, {
+        filter: s => {
+            switch (s.structureType) {
+                case 'constructedWall':
+                    return s.hits < 2000000
+                case 'rampart':
+                    return s.hits < 2000000
+                default:
+                    return s.hits < s.hitsMax
+            }
+        }
+    })
     if(closestDamagedStructure) {
         return this.repair(closestDamagedStructure)
     }
